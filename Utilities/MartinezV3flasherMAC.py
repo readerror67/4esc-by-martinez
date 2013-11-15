@@ -44,8 +44,8 @@ if len(sys.argv) == 3:
 						print
 						time.sleep(5)
 						
-                #os.system('cls')
-                #print" MartinezV3 ist jetzt betriebsbereit!"
+                os.system('cls')
+                print" MartinezV3 ist jetzt betriebsbereit!"
 		
 		
 		
