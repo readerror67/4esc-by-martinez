@@ -1,0 +1,44 @@
+Martinez V3 Readme
+
+
+
+Zur Nutzung:
+
+ich möchte nicht explizit darauf eingehen, welche Systemvorraussetzungen notwendig
+sind, um die .hex-Files zu kompilieren.
+Mit einem :
+
+make all
+
+entstehen die entsprechenden .hex-Files
+
+Zum Flashen kann das KK Flashtool verwendet werden. Hier muss bei 
+"Choose your controller" folgendes ausgewählt werden:
+"atmega 8-based brushless ESC+ enable Bootloader (8kB flash)"
+
+
+Wer es händisch über den avrdude machen möchte, muss folgende Fuses nehmen:
+
+lowFuse = 0x3f  highFuse = 0xca
+
+Man kann die .inc-Files auch noch bezüglich der deadtimes verändern. Dies ist aber nach jetzigem Stand nicht
+nötig
+
+
+tgy.asm-File Bemerkung:
+
+Für den Martinez V3 habe ich sämtliche andere Boards aus dieser tgy.asm übersichtshalber
+herausgenommen und an manchen Stellen eine Kleinigkeit geändert.
+Während der Testphase sind einige .inc-Files mehr da, als eigentlich für den späteren
+Betrieb nötig.
+Es Bedarf keiner Änderung seitens des Users.
+
+make-File Bemerkung:
+hier sind auch nur die für den MartinezV3 notwendigen Dateien eingebunden
+und es Bedarf keiner Änderung seitens des Users.
+
+*.inc-Files Bemerkung:
+
+Es sind zwei inc-Files, einmal mit aktivem Freilauf, einmal ohne
+
+November 2013 imcoref
