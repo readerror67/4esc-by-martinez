@@ -6,7 +6,8 @@ Zur Nutzung:
 
 ich möchte nicht explizit darauf eingehen, welche Systemvorraussetzungen notwendig
 sind, um die .hex-Files zu kompilieren.
-Mit einem :
+
+Mit einem lässigen:
 
 make all
 
