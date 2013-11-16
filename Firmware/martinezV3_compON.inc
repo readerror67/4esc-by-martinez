@@ -13,9 +13,12 @@
 .equ	USE_ICP			= 0
 
 
-.equ   	COMP_PWM 		=	1 ; 1 schaltet den aktiven Freilauf EIN, eine 0 aus
-.equ	DEAD_LOW_NS		= 600 ; diese Werte können verändert werden
-.equ	DEAD_HIGH_NS	= 600 ; jedoch ist dies nach heutigem Stand nicht nötig!!!
+.equ   	COMP_PWM=		1		; 1 schaltet den aktiven Freilauf EIN, eine 0 aus
+.equ	DEAD_LOW_NS=	600		; diese Werte können verändert werden
+.equ	DEAD_HIGH_NS=	600		; jedoch ist dies nach heutigem Stand nicht nötig!!!
+
+.equ	MOTOR_ADVANCE=	18		; 18 ist Standardwert
+.equ	TIMING_OFFSET=	0		; 0 ist Standardwert
 
 
 ;*********************
