@@ -31,18 +31,18 @@ if len(sys.argv) == 3:
                       
 						#os.system('cls')
 						print"Setting ArduinoUSBLinker to Pin PD%d" % (x)
-						ser = serial.Serial(sys.argv[1],19200)
+						ser = serial.Serial(sys.argv[1],19200) #öffnet die serielle Schnittstelle mit 19200Baud
 						pinChange = 16+x
-						#print pinChange
-						ser.write('$M<P')+pinChange
-						ser.write('$M<W')
-						ser.close()
-						time.sleep(2)
+						#print pinChange  # nur zum Testen an der Shell
+						ser.write('$M<P')+pinChange  #setzt den Arduino OutputPin e.g. $M<P18 wäre PD2
+            ser.write('$M<W')      # schreibt den aktuellen Wert des o.g. Pins ins EEPROM
+						ser.close() # schliesst die serielle Schnittstelle
+						time.sleep(2) # warte 2 sec
 						print "Flashing MCU%d" % (x-1)
-						print avrdude_command
-						#os.system (avrdude_command)
+						print avrdude_command # nur zum Testen an der Shell
+						#os.system (avrdude_command) #auskommentieren, wenn im Regelbetrieb. Gibt den avrdude-Befehl an die Shell
 						print
-						time.sleep(5)
+						time.sleep(5) # warte 5sec
 						
                 os.system('cls')
                 print" MartinezV3 ist jetzt betriebsbereit!"
