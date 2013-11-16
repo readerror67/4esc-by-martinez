@@ -80,21 +80,60 @@
 ;
 ; The following only works with avra or avrasm2.
 ; For avrasm32, just comment out all but the include you need.
-;
-;
-;Für den Martinez V3 habe ich sämtliche andere Boards aus dieser tgy.asm übersichtshalber
-;herausgenommen und an manchen Stellen eine Kleinigkeit geändert.
-;Während der Testphase sind einige .inc-Files mehr da, als eigentlich für den späteren
-;Betrieb nötig.
-;November 2013 imcoref
-
-
-
-#if defined(martinezV3_compOFF_esc)
-#include "martinezV3_compOFF.inc"	; Martinez V3 COMP_PWM off, keine spezielle Deadtimes definiert, da bei COMP_PWM = 0 obsolet (INT0 PWM)
-#elif defined(martinezV3_compON_esc)
-#include "martinezV3_compON.inc"	; Martinez V3 COMP_PWM on, keine Deadtimes definiert (INT0 PWM)
-
+#if defined(afro_esc)
+#include "afro.inc"		; AfroESC (ICP PWM, I2C, UART)
+#elif defined(afro2_esc)
+#include "afro2.inc"		; AfroESC 2 (ICP PWM, I2C, UART)
+#elif defined(afro_hv_esc)
+#include "afro_hv.inc"		; AfroESC HV with drivers (ICP PWM, I2C, UART)
+#elif defined(afro_nfet_esc)
+#include "afro_nfet.inc"	; AfroESC 3 with all nFETs (ICP PWM, I2C, UART)
+#elif defined(arctictiger_esc)
+#include "arctictiger.inc"	; Arctic Tiger 30A ESC with all nFETs (ICP PWM)
+#elif defined(birdie70a_esc)
+#include "birdie70a.inc"	; Birdie 70A with all nFETs (INT0 PWM)
+#elif defined(mkblctrl1_esc)
+#include "mkblctrl1.inc"	; MK BL-Ctrl v1.2 (ICP PWM, I2C, UART, high side PWM, sense hack)
+#elif defined(bs_esc)
+#include "bs.inc"		; HobbyKing BlueSeries / Mystery (INT0 PWM)
+#elif defined(bs_nfet_esc)
+#include "bs_nfet.inc"		; HobbyKing BlueSeries / Mystery with all nFETs (INT0 PWM)
+#elif defined(bs40a_esc)
+#include "bs40a.inc"		; HobbyKing BlueSeries / Mystery 40A (INT0 PWM)
+#elif defined(dlu40a_esc)
+#include "dlu40a.inc"		; Pulso Advance Plus 40A DLU40A inverted-PWM-opto (INT0 PWM)
+#elif defined(dlux_esc)
+#include "dlux.inc"		; HobbyKing Dlux Turnigy ESC 20A
+#elif defined(diy0_esc)
+#include "diy0.inc"		; HobbyKing DIY Open ESC (unreleased rev 0)
+#elif defined(hk200a_esc)
+#include "hk200a.inc"		; HobbyKing SS Series 190-200A with all nFETs (INT0 PWM)
+#elif defined(hm135a_esc)
+#include "hm135a.inc"		; Hacker/Jeti Master 135-O-F5B 135A inverted-PWM-opto (INT0 PWM)
+#elif defined(kda_esc)
+#include "kda.inc"		; Keda Model 12A - 30A (INT0 PWM)
+#elif defined(rb50a_esc)
+#include "rb50a.inc"		; Red Brick 50A with all nFETs (INT0 PWM)
+#elif defined(rb70a_esc)
+#include "rb70a.inc"		; Red Brick 70A with all nFETs (INT0 PWM)
+#elif defined(rct50a_esc)
+#include "rct50a.inc"		; RCTimer 50A (MLF version) with all nFETs (INT0 PWM)
+#elif defined(tbs_esc)
+#include "tbs.inc"		; TBS 30A ESC (Team BlackSheep) with all nFETs (ICP PWM, UART)
+#elif defined(tp_esc)
+#include "tp.inc"		; TowerPro 25A/HobbyKing 18A "type 1" (INT0 PWM)
+#elif defined(tp_8khz_esc)
+#include "tp_8khz.inc"		; TowerPro 25A/HobbyKing 18A "type 1" (INT0 PWM) at 8kHz PWM
+#elif defined(tp_i2c_esc)
+#include "tp_i2c.inc"		; TowerPro 25A/HobbyKing 18A "type 1" (I2C)
+#elif defined(tp_nfet_esc)
+#include "tp_nfet.inc"		; TowerPro 25A with all nFETs "type 3" (INT0 PWM)
+#elif defined(tp70a_esc)
+#include "tp70a.inc"		; TowerPro 70A with BL8003 FET drivers (INT0 PWM)
+#elif defined(tgy6a_esc)
+#include "tgy6a.inc"		; Turnigy Plush 6A (INT0 PWM)
+#elif defined(tgy_esc)
+#include "tgy.inc"		; TowerPro/Turnigy Basic/Plush "type 2" (INT0 PWM)
 #else
 #error "Unrecognized board type."
 #endif
@@ -105,9 +144,7 @@
 .equ	BOOT_JUMP	= 1	; Jump to any boot loader when PWM input stays high
 .equ	BOOT_START	= THIRDBOOTSTART
 
-.if !defined(COMP_PWM)
 .equ	COMP_PWM	= 0	; During PWM off, switch high side on (unsafe on some boards!)
-.endif
 .if !defined(DEAD_LOW_NS)
 .equ	DEAD_LOW_NS	= 300	; Low-side dead time w/COMP_PWM (62.5ns steps @ 16MHz, max 2437ns)
 .equ	DEAD_HIGH_NS	= 300	; High-side dead time w/COMP_PWM (62.5ns steps @ 16MHz, max roughly PWM period)
@@ -137,10 +174,10 @@
 .equ	BLIP_CELL_COUNT	= 0	; Blip out cell count before arming
 .equ	DEBUG_ADC_DUMP	= 0	; Output an endless loop of all ADC values (no normal operation)
 .equ	MOTOR_DEBUG	= 0	; Output sync pulses on MOSI or SCK, debug flag on MISO
+
 .equ	I2C_ADDR	= 0x50	; MK-style I2C address
-.if !defined(MOTOR_ID)
 .equ	MOTOR_ID	= 1	; MK-style I2C motor ID, or UART motor number
-.endif
+
 .equ	RCP_TOT		= 16	; Number of 65536us periods before considering rc pulse lost
 
 ; These are now defaults which can be adjusted via throttle calibration
@@ -2800,8 +2837,7 @@ run1:		.if MOTOR_REVERSE
 		.endif
 		rjmp	run_reverse
 
-run_forward:
-		rcall	wait_for_high
+run_forward:	rcall	wait_for_high
 		com1com2
 		sync_off
 		rcall	wait_for_low
@@ -2817,8 +2853,7 @@ run_forward:
 		com6com1
 		rjmp	run6
 
-run_reverse:
-		rcall	wait_for_low
+run_reverse:	rcall	wait_for_low
 		com1com6
 		sync_on
 		rcall	wait_for_high
@@ -2858,8 +2893,7 @@ run6:
 		ldi2	temp1, temp2, PWR_MAX_START
 		rjmp	run6_3
 
-run6_2:	
-		cbr	flags1, (1<<STARTUP)
+run6_2:		cbr	flags1, (1<<STARTUP)
 		RED_off
 		; Build up sys_control to MAX_POWER in steps.
 		; If SLOW_THROTTLE is disabled, this only limits
