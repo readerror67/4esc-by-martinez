@@ -92,7 +92,7 @@
 .equ	BOOT_JUMP	= 1	; Jump to any boot loader when PWM input stays high
 .equ	BOOT_START	= THIRDBOOTSTART
 
-.if !definded(COMP_PWM)
+.if !defined(COMP_PWM)
 .equ	COMP_PWM	= 0	; During PWM off, switch high side on (unsafe on some boards!)
 .endif
 .if !defined(DEAD_LOW_NS)
