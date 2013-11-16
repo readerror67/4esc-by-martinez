@@ -5,7 +5,7 @@ SHELL = /bin/bash
 
 .SUFFIXES: .inc .hex
 
-ALL_TARGETS =  martinezV3_compON.hex martinezV3_compOFF.hex 
+ALL_TARGETS =  martinezV3.hex
 
 
 all: $(ALL_TARGETS)
