@@ -2787,7 +2787,8 @@ run1:		.if MOTOR_REVERSE
 		.endif
 		rjmp	run_reverse
 
-run_forward:	rcall	wait_for_high
+run_forward:
+		rcall	wait_for_high
 		com1com2
 		sync_off
 		rcall	wait_for_low
@@ -2843,7 +2844,8 @@ run6:
 		ldi2	temp1, temp2, PWR_MAX_START
 		rjmp	run6_3
 
-run6_2:		cbr	flags1, (1<<STARTUP)
+run6_2:
+		cbr	flags1, (1<<STARTUP)
 		RED_off
 		; Build up sys_control to MAX_POWER in steps.
 		; If SLOW_THROTTLE is disabled, this only limits
