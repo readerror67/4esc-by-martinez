@@ -1,0 +1,12 @@
+Änderungen 4ESC V3
+
+v3.0.7 PWM in an der Buchse richtig sortiert ( GND, 5V, 1, 2, 3, 4)
+v3.0.6 18k Res und Via unter oberen MOSFET verschoben
+v3.0.5 VCC GND Akku Pads überarbeitet
+v3.0.4 +5V komplett auf min. 10mil Leiterbahnbreite
+Vias VCC unter MOSFET verschoben und Größe geändert, Leiterbahnen im Umfeld angepasst
+GND Vias an den MOSFET hinzugefügt (zwischen den Motorpads)
+v3.0.3 Thermalpads Layer 1 und 16, Power-Teile ausgespart
+Vias der Gates von den Pads verschoben
+v3.0.2 GND Seite der Array durchgängig auf GND gelegt
+v3.0.1 Lötstopplack auf der Oberseite der GND / VCC ausgespart
