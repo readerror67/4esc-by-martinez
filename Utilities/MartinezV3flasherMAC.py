@@ -29,7 +29,7 @@ if len(sys.argv) == 3:
 		
 		for x in range(2, 6):
                       
-						#os.system('cls')
+						#os.system('cls')gggg
 						print"Setting ArduinoUSBLinker to Pin PD%d" % (x)
 						ser = serial.Serial(sys.argv[1],19200) #öffnet die serielle Schnittstelle mit 19200Baud
 						pinChange = 16+x
